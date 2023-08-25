@@ -19,23 +19,23 @@ export default function ResourcePage() {
     RestClient.getItems().then((response: any[]) => {
       const customItems = response.map(item => new CustomTimelineItem(item));
       setItems(customItems);
-      console.log(customItems);
     });
-
-  }, [needsRefresh]);
+    setNeedsRefresh(false)
+  }, [needsRefresh, selectedItem]);
 
   const menuItems: MenuItem[] = [
     {
       label: 'Add',
       icon: 'pi pi-fw pi-plus',
       command: () => {
-        setSelectedItem(undefined);
+        setSelectedItem(null);
         setShowSidebar(true);
       }
     },
     {
       label: 'Edit',
       icon: 'pi pi-fw pi-pencil',
+      disabled: !selectedItem,
       command: () => {
         setShowSidebar(true);
       }
@@ -43,8 +43,11 @@ export default function ResourcePage() {
     {
       label: 'Delete',
       icon: 'pi pi-fw pi-minus',
+      disabled: !selectedItem,
       command: () => {
-        setShowSidebar(true);
+        RestClient.deleteItem(selectedItem);
+        setSelectedItem(null);
+        setNeedsRefresh(true);
       }
     }
   ];
@@ -55,7 +58,7 @@ export default function ResourcePage() {
         <Menubar model={menuItems} />
       </div>
       <div className="card">
-        <ResourceTimeline groups={groups} items={items} setSelectedItem={setSelectedItem} />
+        <ResourceTimeline groups={groups} items={items} setSelectedItem={setSelectedItem} needsRefresh={needsRefresh} />
       </div>
       <ItemSidebar setShow={setShowSidebar} show={showSidebar} setNeedsRefresh={setNeedsRefresh} selectedItem={items.find(item => item.id === selectedItem)} />
     </>

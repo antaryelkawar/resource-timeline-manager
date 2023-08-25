@@ -34,8 +34,6 @@ export const ItemSidebar = (props: ItemSidebarProps) => {
             return;
         }
 
-        console.log(props.selectedItem)
-
         let startDate = new Date(props.selectedItem.startTime)
         let endDate = new Date(props.selectedItem.endTime)
 

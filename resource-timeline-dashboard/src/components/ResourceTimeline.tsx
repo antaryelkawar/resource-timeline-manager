@@ -2,7 +2,7 @@ import Timeline, { CursorMarker, TimelineKeys, TimelineMarkers, TodayMarker } fr
 // make sure you include the timeline stylesheet or the timeline will not be styled
 import 'react-calendar-timeline/lib/Timeline.css'
 import moment from 'moment'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomTimelineGroup, CustomTimelineItem } from '../models/TimelineModel';
 
 const colorMap: Map<string, string> = new Map();
@@ -11,6 +11,7 @@ interface ResourceTimelineProps {
     groups: CustomTimelineGroup[];
     items: CustomTimelineItem[];
     setSelectedItem: (item: string) => void
+    needsRefresh: boolean
 }
 
 const keys: TimelineKeys = {
@@ -26,8 +27,6 @@ const keys: TimelineKeys = {
 }
 
 export function ResourceTimeline(props: ResourceTimelineProps) {
-
-
 
     return (<Timeline
         groups={props.groups}

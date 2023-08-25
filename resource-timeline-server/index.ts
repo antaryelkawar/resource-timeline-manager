@@ -31,6 +31,7 @@ app.put('/item/:id', jsonParser, (req: Request, res: Response) => {
 
 app.delete('/item/:id', jsonParser, (req: Request, res: Response) => {
   itemDb.delete(req.params.id)
+  res.send()
 });
 
 app.get('/group', jsonParser, (req: Request, res: Response) => {
@@ -50,7 +51,9 @@ app.put('/group/:id', jsonParser, (req: Request, res: Response) => {
 });
 
 app.delete('/group/:id', jsonParser, (req: Request, res: Response) => {
+  console.log(req.params.id)
   groupDb.delete(req.params.id)
+  res.send()
 });
 
 app.listen(port, () => {

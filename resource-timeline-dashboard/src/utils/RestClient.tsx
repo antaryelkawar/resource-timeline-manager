@@ -28,5 +28,9 @@ export async function updateItem(item: any) {
 }
 
 export async function deleteItem(id: string) {
-    return await axios.delete(`${baseUrl}/item/` + id);
+    return await axios.delete(`${baseUrl}/item/` + id, {
+        headers: {
+            'Access-Control-Allow-Methods': "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        }
+    });
 }
