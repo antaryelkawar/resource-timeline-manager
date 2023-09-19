@@ -45,9 +45,10 @@ export default function ResourcePage() {
       icon: 'pi pi-fw pi-minus',
       disabled: !selectedItem,
       command: () => {
-        RestClient.deleteItem(selectedItem);
-        setSelectedItem(null);
-        setNeedsRefresh(true);
+        RestClient.deleteItem(selectedItem).then(() => {
+          setSelectedItem(null);
+          setNeedsRefresh(true);
+        });
       }
     }
   ];
